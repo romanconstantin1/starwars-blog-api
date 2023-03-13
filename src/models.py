@@ -10,7 +10,7 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False, default=True)
 
     def __repr__(self):
-        return '<User: %r>' % self.username
+        return '<User: %r>' % self.user_name
 
     def serialize(self):
         return {
@@ -48,6 +48,7 @@ class Character(db.Model):
 
     def serialize(self):
         return {
+            "id": self.id,
             "character name": self.character_name,
             "height": self.height,
             "mass": self.mass,
@@ -72,6 +73,7 @@ class Planet(db.Model):
 
     def serialize(self):
         return {
+            "id": self.id,
             "planet name": self.planet_name,
             "diameter": self.diameter,
             "gravity": self.gravity,
@@ -96,6 +98,7 @@ class Vehicle(db.Model):
 
     def serialize(self):
         return {
+            "id": self.id,
             "vehicle name": self.vehicle_name,
             "model": self.model,
             "manufacturer": self.manufacturer,
