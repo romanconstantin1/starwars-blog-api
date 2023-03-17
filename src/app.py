@@ -38,6 +38,10 @@ def sitemap():
         "msg": "main page view"
     })
 
+
+
+### USERS ###
+
 @app.route('/users', methods=['GET'])
 def handle_user_list():
 
@@ -91,6 +95,10 @@ def delete_user(user_id):
 
     return jsonify({"msg": "User deleted successfully"}), 200
 
+
+
+### PLANETS ###
+
 @app.route('/planet', methods=['GET'])
 def handle_planet_list():
 
@@ -101,6 +109,21 @@ def handle_planet_list():
     }
 
     return jsonify(response_body, all_planets), 200
+
+@app.route('/planet/<int:planet_id>', methods=['GET'])
+def handle_single_planet(planet_id):
+
+    if Planet.query.get(planet_id) is None:
+        raise APIException("Planet not found!", status_code=404)
+
+    single_planet = Planet.query.filter_by(id = planet_id)
+    view_single = list(map(lambda x: x.serialize(), single_planet))
+
+    response_body = {
+        "msg": "Single planet view:"
+    }
+
+    return jsonify(response_body, view_single), 200
 
 @app.route('/planet', methods=['POST'])
 def create_planet():
@@ -142,6 +165,10 @@ def delete_planet(planet_id):
 
     return jsonify({"msg": "Planet deleted successfully, you monster"}), 200
 
+
+
+### CHARACTERS ###
+
 @app.route('/character', methods=['GET'])
 def handle_character_list():
 
@@ -152,6 +179,21 @@ def handle_character_list():
     }
 
     return jsonify(response_body, all_characters), 200
+
+@app.route('/character/<int:character_id>', methods=['GET'])
+def handle_single_character(character_id):
+
+    if Character.query.get(character_id) is None:
+        raise APIException("Character not found!", status_code=404)
+
+    single_character = Character.query.filter_by(id = character_id)
+    view_single = list(map(lambda x: x.serialize(), single_character))
+
+    response_body = {
+        "msg": "Single character view:"
+    }
+
+    return jsonify(response_body, view_single), 200
 
 @app.route('/character', methods=['POST'])
 def create_character():
@@ -193,6 +235,10 @@ def delete_character(character_id):
 
     return jsonify({"msg": "Character deleted successfully, you monster"}), 200
 
+
+
+### VEHICLES ###
+
 @app.route('/vehicle', methods=['GET'])
 def handle_vehicle_list():
 
@@ -203,6 +249,21 @@ def handle_vehicle_list():
     }
 
     return jsonify(response_body, all_vehicles), 200
+
+@app.route('/vehicle/<int:vehicle_id>', methods=['GET'])
+def handle_single_vehicle(vehicle_id):
+
+    if Vehicle.query.get(vehicle_id) is None:
+        raise APIException("Vehicle not found!", status_code=404)
+
+    single_vehicle = Vehicle.query.filter_by(id = vehicle_id)
+    view_single = list(map(lambda x: x.serialize(), single_vehicle))
+
+    response_body = {
+        "msg": "Single vehicle view:"
+    }
+
+    return jsonify(response_body, view_single), 200
 
 @app.route('/vehicle', methods=['POST'])
 def create_vehicle():
